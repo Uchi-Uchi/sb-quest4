@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.udemy.spring_try_myBatis.dao.TodoMapper">
+	<!-- 全件検索 -->
+	<select id="getAllTodos" resultType="com.udemy.spring_try_myBatis.entity.Todo">
+		SELECT * FROM todo
+	</select>
+	
+	<!-- id指定 検索 -->
+	<select id="getTodo" resultType="com.udemy.spring_try_myBatis.entity.Todo">
+		SELECT * FROM todo WHERE id = #{id}
+	</select>
+	
+	<!-- 新規登録 -->
+	<insert id="addTodo" parameterType="com.udemy.spring_try_myBatis.entity.Todo" >
+		INSERT INTO todo (id, title, status, details, created_at, updated_at)
+    VALUES (#{id}, #{title}, #{status}, #{details}, NOW(), NOW())
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="updateTodo" parameterType="com.udemy.spring_try_myBatis.entity.Todo" >
+		UPDATE todo SET title = #{todo.title}, status = #{todo.status}, details = #{todo.details},
+    updated_at = NOW() WHERE id = #{id}
+	</update>
+	
+	<!-- 削除 -->
+	<delete id="deleteTodo" parameterType="Long" >
+		DELETE FROM todo WHERE id = #{id}
+	</delete>
+	
+	<!-- 絞込(タイトル) -->
+	<select id="getTodoByTitle" resultType="com.udemy.spring_try_myBatis.entity.Todo">
+		SELECT * FROM todo WHERE title = #{title}
+	</select>
+	
+	<!-- 絞込(ステータス) -->
+	<select id="getTodoByStatus" resultType="com.udemy.spring_try_myBatis.entity.Todo">
+		SELECT * FROM todo WHERE status = #{status}
+	</select>
+	
+	<!-- ソート(id) -->
+	<select id="getTodosortById" resultType="com.udemy.spring_try_myBatis.entity.Todo">
+		SELECT * FROM todo ORDER BY id
+	</select>
+	
+	<!-- ソート(ステータス) -->
+	<select id="getTodosortByStatus" resultType="com.udemy.spring_try_myBatis.entity.Todo">
+		 SELECT * FROM todo ORDER BY status
+	</select>
+	
+</mapper>
